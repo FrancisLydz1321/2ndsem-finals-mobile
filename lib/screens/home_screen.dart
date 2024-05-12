@@ -2,7 +2,10 @@ import 'package:_fourtho/gen/colors.gen.dart';
 import 'package:_fourtho/gen/fonts.gen.dart';
 import 'package:_fourtho/model/card_model.dart';
 import 'package:_fourtho/widgets/app_text.dart';
+import 'package:_fourtho/widgets/custom_chip.dart';
 import 'package:flutter/material.dart';
+
+import 'package:_fourtho/utilities/card_category_extensions.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,6 +40,9 @@ class HomeScreen extends StatelessWidget {
             _SearchBar(), // custom search widget
             const SizedBox(height: 10),
             _CategoryFilters(), // custom widget
+            const SizedBox(height: 10),
+            _CardGrid(),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -78,7 +84,7 @@ class _CategoryFilters extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           ...CardCategory.values.map(
-            (category) => CustomChip(label: category.name),
+            (category) => CustomChip(label: category.capitalName()),
           ),
         ],
       ),
@@ -86,24 +92,11 @@ class _CategoryFilters extends StatelessWidget {
   }
 }
 
-class CustomChip extends StatelessWidget {
-  final String label;
-  final bool isSelected;
-
-  const CustomChip({
-    Key? key,
-    required this.label,
-    this.isSelected = false,
-  }) : super(key: key);
+class _CardGrid extends StatelessWidget {
+  const _CardGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(right: 10.0),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5.0),
-        decoration: BoxDecoration(
-            color: isSelected ? ColorName.primaryColor : ColorName.disabledGrey,
-            borderRadius: BorderRadius.circular(50.0)),
-        child: Center(child: AppText.small(label)));
+    return const Placeholder();
   }
 }
