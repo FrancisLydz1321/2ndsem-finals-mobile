@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primarySwatch" type="material">#252B5C</color>
+    <color name="primaryColor">#252B5C</color>
+    <color name="darkGrey">#676b8e</color>
+    <color name="lightGrey" type="material">#F5F4F8</color>
+    <color name="disabledGrey" type="material">#E1E1E8</color>
+    <color name="bgBlue" type="material">#6188b1</color>
+    <color name="bgOrange" type="material">#e3886a</color>
+</resources>
