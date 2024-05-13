@@ -15,4 +15,4 @@ riverpod:
 
 2.) flutter pub get
 
-3.) dart pub run build_runner watch
+3.) dart pub run build_runner watch | flutter packages pub run build_runner build

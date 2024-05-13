@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'filtered_cards_provider.dart';
+part of 'selected_category_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filteredCardsHash() => r'b70de1add9eb0584eb10b7f3834bcaf983f387e7';
+String _$selectedCategoryHash() => r'6c5578de5ad5a9a278337e66adc72d36303589d9';
 
-/// See also [filteredCards].
-@ProviderFor(filteredCards)
-final filteredCardsProvider =
-    AutoDisposeFutureProvider<List<CardModel>>.internal(
-  filteredCards,
-  name: r'filteredCardsProvider',
+/// See also [SelectedCategory].
+@ProviderFor(SelectedCategory)
+final selectedCategoryProvider =
+    AutoDisposeNotifierProvider<SelectedCategory, CardCategory?>.internal(
+  SelectedCategory.new,
+  name: r'selectedCategoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$filteredCardsHash,
+      : _$selectedCategoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FilteredCardsRef = AutoDisposeFutureProviderRef<List<CardModel>>;
+typedef _$SelectedCategory = AutoDisposeNotifier<CardCategory?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

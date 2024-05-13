@@ -4,6 +4,8 @@ import 'package:_fourtho/gen/colors.gen.dart';
 import 'package:_fourtho/gen/fonts.gen.dart';
 import 'package:_fourtho/model/card_model.dart';
 import 'package:_fourtho/providers/filtered_cards_provider.dart';
+import 'package:_fourtho/providers/search_query_provider.dart';
+import 'package:_fourtho/providers/selected_category_provider.dart';
 import 'package:_fourtho/repositories/card_repository.dart';
 import 'package:_fourtho/widgets/app_text.dart';
 import 'package:_fourtho/widgets/custom_bottom_nav_bar.dart';
@@ -60,11 +62,11 @@ class HomeScreen extends StatelessWidget {
 }
 
 //homescreen search bar
-class _SearchBar extends StatelessWidget {
+class _SearchBar extends ConsumerWidget {
   const _SearchBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Flexible(
       child: TextFormField(
         decoration: InputDecoration(
@@ -76,17 +78,18 @@ class _SearchBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide.none),
         ),
-        onChanged: (value) {},
+        onChanged: ref.read(searchQueryProvider.notifier).onChange,
       ),
     );
   }
 }
 
-class _CategoryFilters extends StatelessWidget {
+class _CategoryFilters extends ConsumerWidget {
   const _CategoryFilters({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SelectedCategory = ref.watch(selectedCategoryProvider);
     return SizedBox(
       height: 30,
       child: ListView(
@@ -94,8 +97,17 @@ class _CategoryFilters extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           ...CardCategory.values.map(
-            (category) => CustomChip(label: category.capitalName()),
+            (category) => CustomChip(
+              label: category.capitalName(),
+              isSelected: SelectedCategory == category,
+              onTap: () {
+                ref
+                    .read(selectedCategoryProvider.notifier)
+                    .setSelectedCategory(category);
+              },
+            ),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -111,33 +123,34 @@ class _CardGrid extends ConsumerWidget {
     // ref parameter to read riverpod
     final size = MediaQuery.of(context)
         .size; // get the height/size of current screen/mobile screen
+
     final cards = ref.watch(filteredCardsProvider);
 
     return cards.when(
-      loading: () => const Center(child: CircularProgressIndicator(),),
-      data: (cards) =>
-    
-
-    return cards.when( loading: () => const Center(child: CircularProgressIndicator(),),
-    
-    
-    SizedBox(
-      height: size.height * 0.65,
-      child: GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.75, mainAxisSpacing: 10.0),
-        itemCount: 10,
-        itemBuilder: ((context, index) {
-          return Center(
-            child: CustomGiftCard(
-              card: CardModel.sampleCards[3],
-              width: size.width * 0.5,
-            ),
-          ); // extracted widget previously container
-        }),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
       ),
-    ),
-    error:(error, stackTrace) => Center(child: AppText.medium("Failed to Load and fetch cards. Please Try again later"),),); 
+      data: (cards) => SizedBox(
+        height: size.height * 0.65,
+        child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 0.75, mainAxisSpacing: 10.0),
+          itemCount: cards.length,
+          itemBuilder: ((context, index) {
+            return Center(
+              child: CustomGiftCard(
+                card: cards[index], //CardModel.sampleCards[3],
+                width: size.width * 0.5,
+              ),
+            ); // extracted widget previously container
+          }),
+        ),
+      ),
+      error: (error, stackTrace) => Center(
+        child: AppText.medium(
+            "Failed to Load and fetch cards. Please Try again later"),
+      ),
+    );
   }
 }
