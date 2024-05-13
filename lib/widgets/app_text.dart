@@ -42,7 +42,7 @@ class AppText extends Text {
     Key? key,
     this.color = ColorName.primaryColor,
     this.fontWeight = FontWeight.bold,
-    this.fontSize = 24,
+    this.fontSize = 22,
   }) : super(data,
             key: key,
             textAlign: TextAlign.left,
