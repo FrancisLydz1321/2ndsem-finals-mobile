@@ -10,6 +10,7 @@ class CustomGiftCard extends StatelessWidget {
   final bool showValue;
 
   const CustomGiftCard({
+    // constructor
     Key? key,
     required this.card,
     required this.width,
@@ -29,6 +30,7 @@ class CustomGiftCard extends StatelessWidget {
               child: Image.asset(card.thumbnailPath, fit: BoxFit.cover),
             ),
             if (showLabel) ...[
+              // if showLabel is true
               // ... it list the
               const SizedBox(
                 height: 30,
@@ -37,8 +39,9 @@ class CustomGiftCard extends StatelessWidget {
             ]
           ],
         ),
-        if (showValue)
+        if (showValue) // if showValue has selected a value for the gift card
           Positioned(
+              // wrapped
               bottom: 10.0,
               right: 10.0,
               child: AppText.large('\$$value')) // conditional logic

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../model/card_model.dart';
+
+// riverpod
+part 'card_repository.g.dart'; // expose these repository
+
+@riverpod
+CardRepository cardRepository(CardRepositoryRef ref) => CardRepository();
 
 // TODO: create a provider with riverpod generator to expose the repository
 class CardRepository {

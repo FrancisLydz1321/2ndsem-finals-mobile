@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:_fourtho/gen/colors.gen.dart';
 import 'package:_fourtho/gen/fonts.gen.dart';
 import 'package:_fourtho/model/card_model.dart';
+import 'package:_fourtho/providers/filtered_cards_provider.dart';
+import 'package:_fourtho/repositories/card_repository.dart';
 import 'package:_fourtho/widgets/app_text.dart';
 import 'package:_fourtho/widgets/custom_bottom_nav_bar.dart';
 import 'package:_fourtho/widgets/custom_chip.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:_fourtho/utilities/card_category_extensions.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -100,15 +103,26 @@ class _CategoryFilters extends StatelessWidget {
 }
 
 // Card in home screen
-class _CardGrid extends StatelessWidget {
+class _CardGrid extends ConsumerWidget {
   const _CardGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ref parameter to read riverpod
     final size = MediaQuery.of(context)
-        .size; // get the size of current screen/mobile screen
-    return SizedBox(
-      height: size.height * 0.6,
+        .size; // get the height/size of current screen/mobile screen
+    final cards = ref.watch(filteredCardsProvider);
+
+    return cards.when(
+      loading: () => const Center(child: CircularProgressIndicator(),),
+      data: (cards) =>
+    
+
+    return cards.when( loading: () => const Center(child: CircularProgressIndicator(),),
+    
+    
+    SizedBox(
+      height: size.height * 0.65,
       child: GridView.builder(
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -123,6 +137,7 @@ class _CardGrid extends StatelessWidget {
           ); // extracted widget previously container
         }),
       ),
-    );
+    ),
+    error:(error, stackTrace) => Center(child: AppText.medium("Failed to Load and fetch cards. Please Try again later"),),); 
   }
 }

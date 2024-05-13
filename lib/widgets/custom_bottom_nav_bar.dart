@@ -4,6 +4,11 @@ import 'package:_fourtho/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../gen/assets.gen.dart';
+import '../gen/colors.gen.dart';
+import '../gen/fonts.gen.dart';
+import '../screens/home_screen.dart';
+
 class CustomNavBar extends StatelessWidget {
   const CustomNavBar({
     Key? key,
@@ -14,14 +19,15 @@ class CustomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BottomAppBar(
+    return BottomAppBar(
+      // don't apply const
       child: SizedBox(
         height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _NavBarIcon(
-              iconPath: null,
+              iconPath: Assets.icons.materialSymbolsHome,
               isSelected: index == 0,
               onTap: index != 0
                   ? () {
@@ -68,7 +74,7 @@ class _NavBarIcon extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Center(
-        child: SvgPicture.asset(iconPath, color: color),
+        child: SvgPicture.asset(iconPath, color: color), //  color: color
       ),
     );
   }

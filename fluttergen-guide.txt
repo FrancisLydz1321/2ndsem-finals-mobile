@@ -3,8 +3,16 @@ dev_dependencies:
   build_runner:
   flutter_gen_runner:
 
+2.) flutter pub get
+
+3.) dart run build_runner build
+
+
+
+riverpod:
+
+1.) download riverpod, riverpod annotation, riverpod hooks
 
 2.) flutter pub get
 
-
-3.) dart run build_runner build
+3.) dart pub run build_runner watch
